@@ -21,6 +21,13 @@ public class TestPiloto {
     CreatePilotoOutPut createPilotoOutPut;
 
     @Test
+    public void testPiloto() {
+        Piloto piloto = Piloto.InstancePiloto(null, "Gabriel", "1233211", LocalDate.of(2002, 11, 25));
+        createPilotoOutPut.existPiloto_documento("1233211");
+        Assertions.assertNotNull(piloto);
+    }
+
+    @Test
     public void testCrearPiloto() {
         when(createPilotoOutPut.existPiloto_documento("12345678")).thenReturn(false);
         UUID uuid = createPilotoOutPut.crearPiloto("Juan Pérez", "12345678", LocalDate.of(2000, 1, 1));
@@ -41,6 +48,6 @@ public class TestPiloto {
     public void testCrearPiloto_MenorDeEdad() {
         createPilotoOutPut.crearPiloto("Juan Pérez", "12345678", LocalDate.of(2014, 1, 1));
         when(createPilotoOutPut.existPiloto_documento("12345678")).thenReturn(false);
-//        Assertions.assertThrows(RuntimeException.class, () -> createPilotoOutPut.crearPiloto("Juan Pérez", "12345678", LocalDate.of(2010, 1, 1)));
+        Assertions.assertThrows(RuntimeException.class, () -> createPilotoOutPut.crearPiloto("Juan Pérez", "12345678", LocalDate.of(2010, 1, 1)));
     }
 }
